@@ -15,6 +15,7 @@ import requests
 DATE_FORMAT = "%Y-%m-%d"
 DATE_TIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 LOG_FORMAT = '%(asctime)s.%(msecs)03d %(levelname)-6s %(message)s'
+ZEN = 'zenworks'
 
 
 def get_logger_to_file(name, log_file_name, log_rotate_size=None, log_rotate_count=10, log_level=None):
