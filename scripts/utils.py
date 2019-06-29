@@ -14,9 +14,10 @@ import requests
 
 DATE_FORMAT = "%Y-%m-%d"
 DATE_TIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+LOG_FORMAT = '%(asctime)s.%(msecs)03d %(levelname)-6s %(message)s'
 
 
-def get_logger(name, log_file_name, log_rotate_size=None, log_rotate_count=10):
+def get_logger_to_file(name, log_file_name, log_rotate_size=None, log_rotate_count=10, log_level=None):
     """
     Creates a logger identified by name that logs to log_file_name. The logger
     would be set in DEBUG level.
@@ -31,6 +32,7 @@ def get_logger(name, log_file_name, log_rotate_size=None, log_rotate_count=10):
     :param log_file_name: str - path to log file.
     :param log_rotate_size: int - max size of rotate log files in bytes.
     :param log_rotate_count: int - max number of rotate log files to keep.
+    :param log_level: int - log level, defaults to logging.DEBUG (10).
     :return: logger object.
     """
     # Check if log file exits with write access.
@@ -47,22 +49,35 @@ def get_logger(name, log_file_name, log_rotate_size=None, log_rotate_count=10):
     logger.setLevel(logging.DEBUG)
     if log_rotate_size:
         # Create rotate file handler
-        log_handler = logging.handlers.RotatingFileHandler(
+        file_handler = logging.handlers.RotatingFileHandler(
             log_file_name, maxBytes=log_rotate_size, backupCount=log_rotate_count)
     else:
         # Create file handler.
         file_handler = logging.FileHandler(log_file_name)
 
-    file_handler.setLevel(logging.DEBUG)
+    file_handler.setLevel(log_level or logging.DEBUG)
     # Format logging.
     log_formatter = logging.Formatter(
-        fmt='%(asctime)s.%(msecs)03d %(levelname)-6s %(message)s',
+        fmt=LOG_FORMAT,
         datefmt='%Y-%m-%d %H:%M:%S'
     )
     file_handler.setFormatter(log_formatter)
     # Now add file hander to logger.
     logger.addHandler(file_handler)
 
+    return logger
+
+
+def get_logger_to_console(name, log_level=None):
+    """
+    Creates a logger identifier that logs to console.
+    :param name: string - logger identifier.
+    :param log_level: int - log level, defaults to logging.DEBUG (10).
+    :return: logger object.
+    """
+    logging.basicConfig(format=LOG_FORMAT)
+    logger = logging.getLogger(name)
+    logger.setLevel(log_level or logging.INFO)
     return logger
 
 

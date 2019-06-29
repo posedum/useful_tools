@@ -84,15 +84,14 @@ class DatabaseHelper(object):
             cxn_str += '?charset={}'.format(charset)
         return cxn_str
 
-    def bulk_load_records(self, db_helper, table_name, records):
+    def bulk_load_records(self, table_name, records):
         """
         Bulk inserts records into table.
 
-        :param db_helper: object - instance of DatabaseHelper.
         :param table_name: string - name of target table.
         :param records: list of dicts - records to bulk insert.
         """
-        target_table = db_helper.get_table(name=table_name)
+        target_table = self.get_table(name=table_name)
         target_table.insert().execute(records)
 
     def execute_call_procedure(self, proc_name, params=None):
