@@ -28,7 +28,6 @@ def file_lock(lock_file, verbose=False):
 class FileLock(object):
     """
     Wrapper class for locking a file.
-
     To use this class, simply inherit it then call the acquire_lock method:
         >> super(self.__class__, self).__init__()
         >> self.acquire_lock(lock_file=LOCK_FILE)

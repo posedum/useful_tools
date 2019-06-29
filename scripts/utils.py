@@ -27,7 +27,6 @@ def get_logger_to_file(name, log_file_name, log_rotate_size=None, log_rotate_cou
         logger.info('This is an info level log.')
         logger.warning('This is an warning level log.')
         logger.critical('This is an critical level log.')
-
     :param name: str - name of logger.
     :param log_file_name: str - path to log file.
     :param log_rotate_size: int - max size of rotate log files in bytes.
@@ -104,7 +103,6 @@ def get_sys_logger():
 def send_slack_notification(webhook_url, username, **kwargs):
     """
     Send slack notification.
-
     :param webhook_url: string - url to send to. Slack webhook url.
     :param username: string - sender
     """
@@ -121,8 +119,7 @@ def send_slack_notification(webhook_url, username, **kwargs):
 def format_timedelta(time_delta, with_micro_secs=False):
     """
     Timedelta formatter for hours:mins:seconds
-
-    :param td: object - datatime.timedelta object.
+    :param time_delta: object - datatime.timedelta object.
     :param with_micro_secs: boolean - indicating whether microseconds should be displayed.
     :return: string time formatted as "hours:mins:sec:msec" when with_micro_secs in True, 
         "hours:mins:sec" otherwise.
@@ -141,8 +138,8 @@ def timer(with_duration=False):
     Context manager to print out start and end times.
     :param with_duration: boolean indicating whether duration should be printed.
     """
+    start_time = datetime.now()
     try:
-        start_time = datetime.now()
         print("Start Time: {}".format(start_time.strftime(DATE_TIME_FORMAT)))
         yield
     finally:

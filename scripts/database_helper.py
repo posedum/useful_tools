@@ -16,7 +16,6 @@ class DatabaseHelper(object):
             self, server_type, username, password, server, port=3306, database=None, lightweight=False, charset=''):
         """
         Initialize db helper.
-
         :param server_type: string - either 'mysql' or 'mssql' and indicates type of target sql server.
         :param username: string - db administrator username.
         :param password: string - db administrator password.
@@ -56,7 +55,6 @@ class DatabaseHelper(object):
     def build_connection_string(server_type, username, password, server, port=3306, database=None, charset=None):
         """
         Creates the connection string that will be based to the driver.
-
         :param server_type: string - either 'mysql' or 'mssql' and indicates type of target sql server.
         :param username: string - db administrator username.
         :param password: string - db administrator password.
@@ -87,7 +85,6 @@ class DatabaseHelper(object):
     def bulk_load_records(self, table_name, records):
         """
         Bulk inserts records into table.
-
         :param table_name: string - name of target table.
         :param records: list of dicts - records to bulk insert.
         """
@@ -120,7 +117,6 @@ class DatabaseHelper(object):
     def execute_query(self, query, db_connection=None):
         """
         Wrapper to execute a query.
-
         :param query: query to execute.
         :param db_connection: db connection to use.
         :return:
@@ -132,7 +128,6 @@ class DatabaseHelper(object):
     def get_session(self):
         """
         Create a database connection session.
-
         :return: object sqlalchemy Session to for current db connection.
         """
         session = sessionmaker(bind=self.db_engine)
@@ -141,7 +136,6 @@ class DatabaseHelper(object):
     def get_table(self, name):
         """
         Creates a table cursor.
-
         :param name:
         :return:
         """
@@ -150,7 +144,6 @@ class DatabaseHelper(object):
     def print_query(self, query):
         """
         Prints the compiled query as string.
-
         :param query: sqlalchemy query.
         """
         print(str(query.compile(compile_kwargs={'literal_binds': True})))
